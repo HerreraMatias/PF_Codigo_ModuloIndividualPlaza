@@ -1,0 +1,74 @@
+#include <Arduino.h>
+
+#define LED_BUILTIN 2
+
+HardwareSerial RS485Serial(2);
+
+#define RS485_RX 17
+#define RS485_TX 16
+#define RS485_EN 4
+
+void setup()
+{
+    pinMode(LED_BUILTIN, OUTPUT);
+
+    pinMode(RS485_EN, OUTPUT);
+
+    // Comenzamos en recepción
+    digitalWrite(RS485_EN, LOW);
+
+    // UART USB
+    Serial.begin(9600);
+
+    // UART RS485
+    RS485Serial.begin(
+        9600,
+        SERIAL_8N1,
+        RS485_RX,
+        RS485_TX);
+
+    Serial.println("ESP32 iniciado");
+}
+
+void loop()
+{
+    static unsigned long t = 0;
+
+    if (millis() - t > 2000)
+    {
+        t = millis();
+
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(250);
+        digitalWrite(LED_BUILTIN, LOW);
+
+        Serial.println("Estoy aca");
+
+        // -------------------------
+        // TRANSMITIR
+        // -------------------------
+        static int index = 0;
+        index++;
+        digitalWrite(RS485_EN, HIGH);
+
+        RS485Serial.println("Index: " + String(index));
+
+        // Esperar a que termine de transmitir
+        RS485Serial.flush();
+
+        // Volver a recepción
+        digitalWrite(RS485_EN, LOW);
+    }
+
+    // -------------------------
+    // RECIBIR
+    // -------------------------
+
+    if (RS485Serial.available())
+    {
+        String mensaje = RS485Serial.readStringUntil('\n');
+
+        Serial.print("RS485 RX: ");
+        Serial.println(mensaje);
+    }
+}
