@@ -28,7 +28,6 @@ void oled_init()
     if (!display1.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS))
     {
         Serial.println("No se encontro la pantalla OLED");
-        while (1);
     }
 
     // Limpiar pantalla
@@ -39,11 +38,11 @@ void oled_init()
     display1.setTextColor(SSD1306_WHITE);
     display1.setCursor(0, 0);
 
-    display1.println("Hola!");
+    display1.println("Smart Parking");
 
     display1.setTextSize(1);
     display1.setCursor(0, 30);
-    display1.println("ESP32 funcionando");
+    display1.println("Sistema iniciado");
 
     display1.display();
 }

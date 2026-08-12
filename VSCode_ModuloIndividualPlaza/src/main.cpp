@@ -1,34 +1,32 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-//#include "RFID_MFRC522/MFRC522_Driver.h"
-#include "oled.h"
-#include "rs485.h"
-#include "ultrasonico.h"
+// #include "RFID_MFRC522/MFRC522_Driver.h"
+#include "OLED_DISPLAY/oled_display.h"
+#include "RS485/RS485_Driver.h"
+#include "ULTRASONICO_HCSR04/HCSR04_Driver.h"
+#include "MEMORIA_EEPROM/EEPROM_functions.h"
+
 #include "rc522_test.h"
+#include "Debug_setup.h"
 
 void setup()
 {
-    Serial.begin(115200);
-    Serial.println("Init: serial port");
+    DEBUG_BEGIN
+    eeprom
     oled_init();
-    Serial.println("Init: oled");
     rs485_init();
-    Serial.println("Init: rs485");
-   // MFRC522_begin();
-   rc522_test(); 
-   Serial.println("Init: rc522");
+    // MFRC522_begin();
+    rc522_test();
     ultrasonico_init();
-    Serial.println("Init: ultrasonico");
     pinMode(LED_BUILTIN, OUTPUT);
-    Serial.println("Init: listo");
 }
 
 void loop()
 {
     ultrasonico_loop();
     rs485_loop();
-    ///MFRC522_loop();
+    /// MFRC522_loop();
     static unsigned long t = 0;
 
     if (millis() - t > 5000)
