@@ -1,55 +1,41 @@
 #include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+#include <SPI.h>
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-
-#define OLED_SDA 21
-#define OLED_SCL 22
-
-#define OLED_RESET -1
-#define OLED_ADDRESS 0x3C
-
-Adafruit_SSD1306 display(
-    SCREEN_WIDTH,
-    SCREEN_HEIGHT,
-    &Wire,
-    OLED_RESET
-);
+#include "RFID_MFRC522/MFRC522_Driver.h"
+#include "oled.h"
+#include "rs485.h"
+#include "ultrasonico.h"
 
 void setup()
 {
-    Serial.begin(9600);
-
-    // Configurar I2C
-    Wire.begin(OLED_SDA, OLED_SCL);
-
-    // Inicializar OLED
-    if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS))
-    {
-        Serial.println("No se encontro la pantalla OLED");
-        while (1);
-    }
-
-    // Limpiar pantalla
-    display.clearDisplay();
-
-    // Configurar texto
-    display.setTextSize(2);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(0, 0);
-
-    display.println("Hola!");
-
-    display.setTextSize(1);
-    display.setCursor(0, 30);
-    display.println("ESP32 funcionando");
-
-    display.display();
+    Serial.begin(115200);
+    Serial.println("Init: serial port");
+    oled_init();
+    Serial.println("Init: oled");
+    rs485_init();
+    Serial.println("Init: rs485");
+    MFRC522_begin();
+    Serial.println("Init: rc522");
+    ultrasonico_init();
+    Serial.println("Init: ultrasonico");
+    pinMode(LED_BUILTIN, OUTPUT);
+    Serial.println("Init: listo");
 }
 
 void loop()
 {
+    ultrasonico_loop();
+    MFRC522_loop();
+    static unsigned long t = 0;
+
+    if (millis() - t > 5000)
+    {
+        t = millis();
+
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(250);
+        digitalWrite(LED_BUILTIN, LOW);
+
+        Serial.println("Estoy aca");
+    }
 }

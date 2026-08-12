@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-#define LED_BUILTIN 2
 
 HardwareSerial RS485Serial(2);
 
@@ -8,17 +7,12 @@ HardwareSerial RS485Serial(2);
 #define RS485_TX 16
 #define RS485_EN 4
 
-void setup()
+void rs485_init()
 {
-    pinMode(LED_BUILTIN, OUTPUT);
-
     pinMode(RS485_EN, OUTPUT);
 
     // Comenzamos en recepción
     digitalWrite(RS485_EN, LOW);
-
-    // UART USB
-    Serial.begin(9600);
 
     // UART RS485
     RS485Serial.begin(
@@ -30,7 +24,7 @@ void setup()
     Serial.println("ESP32 iniciado");
 }
 
-void loop()
+void rs485_loop()
 {
     static unsigned long t = 0;
 

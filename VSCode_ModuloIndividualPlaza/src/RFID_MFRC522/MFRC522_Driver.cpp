@@ -3,8 +3,8 @@
 #include "MFRC522_Driver.h"
 #include <MFRC522.h>
 
-#define RST_PIN 33
-#define SS_PIN 26
+#define RST_PIN 27
+#define SS_PIN 15
 MFRC522 reader(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
 
@@ -19,10 +19,27 @@ String rfid_serial = "";
 void MFRC522_connect();
 void SetDatosEnvio_RFID(String, String);
 
+// ==========================
+// HSPI
+// ==========================
+#define HSPI_SCK   14
+#define HSPI_MISO  12
+#define HSPI_MOSI  13
+
 void MFRC522_begin()
 {
   //SPI.begin(48,46,45 );
-  SPI.begin(48, 46, 45);
+ // RFID_SPI.begin(18, 19, 23, SS_PIN);
+
+ RFID_SPI.begin(
+        HSPI_SCK,
+        HSPI_MISO,
+        HSPI_MOSI,
+        SS_PIN
+    );
+
+    pinMode(SS_PIN, OUTPUT);
+    digitalWrite(SS_PIN, HIGH);
 
 
   reader.PCD_Init();
@@ -43,7 +60,7 @@ void MFRC522_loop()
   if (!check_reader)
   {
     check_reader = 5000;
-    // Serial.println(reader.PCD_PerformSelfTest());
+     Serial.println(reader.PCD_PerformSelfTest());
   }
 
   // Reset the loop if no new card present on the sensor/reader. This saves the entire process when idle.
@@ -51,7 +68,8 @@ void MFRC522_loop()
   {
     return;
   }
-
+  Serial.println("isnewcard");
+  
   // Select one of the cards. This returns false if read is not successful; and if that happens, we stop the code
   if (!reader.PICC_ReadCardSerial())
   {
