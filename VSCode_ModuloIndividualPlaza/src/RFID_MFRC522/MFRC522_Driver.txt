@@ -4,9 +4,11 @@
 #include <MFRC522.h>
 
 #define RST_PIN 27
-#define SS_PIN 15
+#define SS_PIN 32
 MFRC522 reader(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
+
+SPIClass RFID_SPI(VSPI);
 
 String respuestaPost2 = "";
 String remoteIP = "";
@@ -22,9 +24,9 @@ void SetDatosEnvio_RFID(String, String);
 // ==========================
 // HSPI
 // ==========================
-#define HSPI_SCK   14
-#define HSPI_MISO  12
-#define HSPI_MOSI  13
+#define HSPI_SCK   18
+#define HSPI_MISO  19
+#define HSPI_MOSI  23
 
 void MFRC522_begin()
 {

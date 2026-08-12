@@ -26,22 +26,10 @@ void rs485_init()
 
 void rs485_loop()
 {
-    static unsigned long t = 0;
-
-    if (millis() - t > 2000)
-    {
-        t = millis();
-
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(250);
-        digitalWrite(LED_BUILTIN, LOW);
-
-        Serial.println("Estoy aca");
-
         // -------------------------
         // TRANSMITIR
         // -------------------------
-        static int index = 0;
+     /*   static int index = 0;
         index++;
         digitalWrite(RS485_EN, HIGH);
 
@@ -52,7 +40,7 @@ void rs485_loop()
 
         // Volver a recepción
         digitalWrite(RS485_EN, LOW);
-    }
+    */
 
     // -------------------------
     // RECIBIR

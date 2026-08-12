@@ -1,10 +1,11 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-#include "RFID_MFRC522/MFRC522_Driver.h"
+//#include "RFID_MFRC522/MFRC522_Driver.h"
 #include "oled.h"
 #include "rs485.h"
 #include "ultrasonico.h"
+#include "rc522_test.h"
 
 void setup()
 {
@@ -14,8 +15,9 @@ void setup()
     Serial.println("Init: oled");
     rs485_init();
     Serial.println("Init: rs485");
-    MFRC522_begin();
-    Serial.println("Init: rc522");
+   // MFRC522_begin();
+   rc522_test(); 
+   Serial.println("Init: rc522");
     ultrasonico_init();
     Serial.println("Init: ultrasonico");
     pinMode(LED_BUILTIN, OUTPUT);
@@ -25,7 +27,8 @@ void setup()
 void loop()
 {
     ultrasonico_loop();
-    MFRC522_loop();
+    rs485_loop();
+    ///MFRC522_loop();
     static unsigned long t = 0;
 
     if (millis() - t > 5000)
