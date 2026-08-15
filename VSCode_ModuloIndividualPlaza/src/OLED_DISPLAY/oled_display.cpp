@@ -2,12 +2,10 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "../ESP32_PinsConfig.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-
-#define OLED_SDA 21
-#define OLED_SCL 22
 
 #define OLED_RESET -1
 #define OLED_ADDRESS 0x3C
@@ -38,10 +36,11 @@ void oled_init()
     display1.setTextColor(SSD1306_WHITE);
     display1.setCursor(0, 0);
 
-    display1.println("Smart Parking");
+    display1.println("Smart");
+    display1.println("Parking");
 
     display1.setTextSize(1);
-    display1.setCursor(0, 30);
+    display1.setCursor(0, 45);
     display1.println("Sistema iniciado");
 
     display1.display();

@@ -11,7 +11,6 @@
 *  \copyright (c) 2024 Adox. All rights reserved.
 ******************************************************************************/
 
-
 #include <Arduino.h>
 
 #define DEBUG_ENABLE // Comment this line to disable serial debug.

@@ -9,14 +9,15 @@
 *  \copyright (c) 2024 Adox. All rights reserved.
 ******************************************************************************/
 
-
 #ifndef TICKER_FUNCTIONS_H
 #define TICKER_FUNCTIONS_H
 
+extern int oled_display_tic;
+extern int ultrasonico_tic;
+extern int example_tic;
 extern int encoder_button_tic;
 extern int sensor_tic;
 extern int test_tic;
-extern int oled_display_tic;
 extern int wifi_tcp_tic;
 extern int mqtt_tic;
 

@@ -25,13 +25,6 @@ int dir_mqtt_topic_name = 200;
 int dir_ip_puerto_local = 250;
 
 /**
- * Direcciones para comunicacion TCP
- */
-int dir_tcp_first_index = 300;
-int dir_tcp_last_index = 350;
-int dir_tcp_reset_counter = 400;
-
-/**
  * @brief Begin eeprom.
  */
 void eeprom_begin()

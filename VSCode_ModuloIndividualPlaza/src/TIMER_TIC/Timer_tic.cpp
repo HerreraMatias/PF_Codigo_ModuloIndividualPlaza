@@ -20,9 +20,15 @@ int test_tic = 0;
 int oled_display_tic = 0;
 int wifi_tcp_tic = 0;
 int mqtt_tic = 0;
+int ultrasonico_tic = 0;
+int example_tic = 0;
 
 void Timer_1ms()
 {
+    if (example_tic > 0)
+        example_tic--;
+    if (ultrasonico_tic > 0)
+        ultrasonico_tic--;
     if (encoder_button_tic > 0)
         encoder_button_tic--;
     if (sensor_tic > 0)

@@ -8,7 +8,6 @@
 *  \copyright (c) 2024 Adox. All rights reserved.
 ******************************************************************************/
 
-
 #ifndef Eeprom_library
 #define Eeprom_library
 
@@ -23,13 +22,6 @@ extern int dir_mqtt_topic_name;
 extern int dir_ssid;
 extern int dir_pass;
 extern int dir_ip_puerto_local;
-
-/**
- * Direcciones para comunicacion TCP
- */
-extern int dir_tcp_first_index;
-extern int dir_tcp_last_index;
-extern int dir_tcp_reset_counter;
 
 /**
  * @brief Begin eeprom.
