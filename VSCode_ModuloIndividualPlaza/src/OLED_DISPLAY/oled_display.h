@@ -44,6 +44,16 @@ void oled_pressure();
 void oled_AM2301();
 
 /**
+ * @brief Funcion para mostrar distancia medida.
+ */
+void oled_ultrasonico(int);
+
+/**
+ * @brief Funcion para mostrar el id del RFID leido.
+ */
+void oled_rfid_new_id(String);
+
+/**
  * @brief Funcion para mostrar los indices del tcp.
  */
 void oled_tcp_indexes();

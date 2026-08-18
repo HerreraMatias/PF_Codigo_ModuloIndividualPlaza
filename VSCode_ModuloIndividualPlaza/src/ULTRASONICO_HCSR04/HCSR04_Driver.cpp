@@ -36,6 +36,8 @@ void ultrasonico_loop()
             DEBUG_("Distancia: ");
             DEBUG_(distancia);
             DEBUG(" cm");
+            //-----> Muestro en pantalla OLED
+            oled_ultrasonico(distancia);
         }
     }
 }

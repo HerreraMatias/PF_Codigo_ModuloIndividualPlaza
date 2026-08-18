@@ -20,7 +20,7 @@ int test_tic = 0;
 int oled_display_tic = 0;
 int wifi_tcp_tic = 0;
 int mqtt_tic = 0;
-int ultrasonico_tic = 0;
+int ultrasonico_tic = 3000;
 int example_tic = 0;
 
 void Timer_1ms()

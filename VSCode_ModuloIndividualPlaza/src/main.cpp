@@ -42,6 +42,8 @@ void loop()
     {
         rfid_new_id = false; // Deshabilito
         rs485_send("New rfid: " + rfid_serial_id);
+        oled_rfid_new_id(rfid_serial_id);
+        ultrasonico_tic = 5000; // Vuelvo a medir en 5 segundos.
     }
 
     //-----> Timer de ejemplo.
@@ -50,7 +52,7 @@ void loop()
         example_tic = 2000;
 
         digitalWrite(LED_BUILTIN, HIGH);
-        delay(250);
+        delay(250); //Evitar usarlos.
         digitalWrite(LED_BUILTIN, LOW);
     }
 }

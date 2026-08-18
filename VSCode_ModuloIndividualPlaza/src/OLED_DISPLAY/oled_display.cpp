@@ -14,8 +14,7 @@ Adafruit_SSD1306 display1(
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
     &Wire,
-    OLED_RESET
-);
+    OLED_RESET);
 
 void oled_init()
 {
@@ -43,5 +42,34 @@ void oled_init()
     display1.setCursor(0, 45);
     display1.println("Sistema iniciado");
 
+    display1.display();
+}
+
+void oled_ultrasonico(int _distancia)
+{
+    display1.clearDisplay();
+    display1.setTextSize(2);
+    display1.setTextColor(SSD1306_WHITE);
+    display1.setCursor(0, 0);
+    display1.println("Distancia");
+    display1.println("medida");
+    display1.setTextSize(2);
+    display1.setCursor(0, 42);
+    display1.print(String(_distancia));
+    display1.setTextSize(1);
+    display1.println("   centimetros");
+    display1.display();
+}
+
+void oled_rfid_new_id(String _new_id)
+{
+    display1.clearDisplay();
+    display1.setTextSize(2);
+    display1.setTextColor(SSD1306_WHITE);
+    display1.setCursor(0, 0);
+    display1.println("Nuevo RFID");
+    display1.setTextSize(1);
+    display1.setCursor(0, 35);
+    display1.print(String(_new_id));
     display1.display();
 }
