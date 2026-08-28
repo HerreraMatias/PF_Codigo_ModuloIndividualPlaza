@@ -13,6 +13,7 @@ void setup()
 {
     //-----> Puerto serie para debug.
     DEBUG_BEGIN
+    DEBUG("Version: 1.0")
     //-----> Timers.
     Ticker_begin();
     //-----> Memoria eeprom.
