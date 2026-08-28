@@ -48,20 +48,17 @@ void MFRC522_init()
 
     case 0x00:
         DEBUG("ERROR: No responde (MISO en LOW)");
-        while (1)
-            ;
+      
         break;
 
     case 0xFF:
         DEBUG("ERROR: No responde (MISO en HIGH)");
-        while (1)
-            ;
+       
         break;
 
     default:
         DEBUG("ERROR: Version desconocida");
-        while (1)
-            ;
+        
     }
 
     reader.PCD_DumpVersionToSerial();
