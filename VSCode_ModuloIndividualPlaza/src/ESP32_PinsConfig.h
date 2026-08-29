@@ -17,3 +17,16 @@
 //-----> OLED.
 #define OLED_SDA 21
 #define OLED_SCL 22
+
+//-----> SERIE NEXTION.
+#define NEXTION_TX 15
+#define NEXTION_RX 14
+
+//-----> RELES.
+#define RELAY_1 13 
+#define RELAY_2 33
+#define RELAY_3 5
+
+//-----> LED.
+#define LED_PIN 2
+

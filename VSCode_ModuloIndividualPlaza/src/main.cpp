@@ -1,11 +1,13 @@
 #include <Arduino.h>
 
+#include "ESP32_PinsConfig.h"
 #include "RFID_MFRC522/MFRC522_Driver.h"
 #include "OLED_DISPLAY/oled_display.h"
 #include "RS485/RS485_Driver.h"
 #include "ULTRASONICO_HCSR04/HCSR04_Driver.h"
 #include "MEMORIA_EEPROM/EEPROM_functions.h"
 #include "TIMER_TIC/Timer_tic.h"
+#include "NEXTION/NEXTION_Driver.h"
 
 #include "Debug_setup.h"
 
@@ -13,7 +15,7 @@ void setup()
 {
     //-----> Puerto serie para debug.
     DEBUG_BEGIN
-    DEBUG("Version: 1.0")
+    DEBUG("Version: 1.1")
     //-----> Timers.
     Ticker_begin();
     //-----> Memoria eeprom.
@@ -26,8 +28,16 @@ void setup()
     MFRC522_init();
     //-----> Sensor ultrasonico.
     ultrasonico_init();
+    //-----> Nextion.
+    nextion_init();
     //-----> Pin LED.
-    pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);
+    pinMode(RELAY_1, OUTPUT);
+    pinMode(RELAY_2, OUTPUT);
+    pinMode(RELAY_3, OUTPUT);
+    digitalWrite(RELAY_1, HIGH);
+    digitalWrite(RELAY_2, HIGH);
+    digitalWrite(RELAY_3, HIGH);
 }
 
 void loop()
@@ -36,6 +46,7 @@ void loop()
     MFRC522_loop();     // Lectura de tarjetas RFID.
     ultrasonico_loop(); // Lectura de sensor ultrasonico.
     rs485_loop();       // Recepción de mensajes RS485.
+    nextion_loop();     // Recepción de mensajes Nextion.
     /***************************************************/
 
     //-----> Registro nueva tarjeta rfid
@@ -52,8 +63,46 @@ void loop()
     {
         example_tic = 2000;
 
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(250); //Evitar usarlos.
-        digitalWrite(LED_BUILTIN, LOW);
+        digitalWrite(LED_PIN, HIGH);
+        delay(250); // Evitar usarlos.
+        digitalWrite(LED_PIN, LOW);
+
+        //----> Reles
+        static int x = 0;
+        static int cont = 0;
+        cont++;
+        x++;
+        if (x == 3)
+        {
+            x = 0;
+            nextion_send("date.txt=\"" + String(cont) + "\"");
+        }
+
+        switch (x)
+        {
+        case 0:
+            DEBUG("Case 0")
+            digitalWrite(RELAY_1, HIGH);
+            digitalWrite(RELAY_2, HIGH);
+            digitalWrite(RELAY_3, LOW);
+            break;
+
+        case 1:
+            DEBUG("Case 1")
+            digitalWrite(RELAY_1, HIGH);
+            digitalWrite(RELAY_2, LOW);
+            digitalWrite(RELAY_3, HIGH);
+            break;
+
+        case 2:
+            DEBUG("Case 2")
+            digitalWrite(RELAY_1, LOW);
+            digitalWrite(RELAY_2, HIGH);
+            digitalWrite(RELAY_3, HIGH);
+            break;
+
+        default:
+            break;
+        }
     }
 }
