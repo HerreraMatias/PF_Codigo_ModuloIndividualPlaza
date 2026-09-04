@@ -8,6 +8,7 @@
 #include "MEMORIA_EEPROM/EEPROM_functions.h"
 #include "TIMER_TIC/Timer_tic.h"
 #include "NEXTION/NEXTION_Driver.h"
+#include "BUZZER/BUZZER_Driver.h"
 
 #include "Debug_setup.h"
 
@@ -30,6 +31,8 @@ void setup()
     ultrasonico_init();
     //-----> Nextion.
     nextion_init();
+    //-----> Buzzer
+    buzzer_init();
     //-----> Pin LED.
     pinMode(LED_PIN, OUTPUT);
     pinMode(RELAY_1, OUTPUT);
@@ -64,8 +67,10 @@ void loop()
         example_tic = 2000;
 
         digitalWrite(LED_PIN, HIGH);
-        delay(250); // Evitar usarlos.
+        buzzer_on();
+        delay(100); // Evitar usarlos.
         digitalWrite(LED_PIN, LOW);
+        buzzer_off();
 
         //----> Reles
         static int x = 0;

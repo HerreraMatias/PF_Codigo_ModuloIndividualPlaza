@@ -30,3 +30,6 @@
 //-----> LED.
 #define LED_PIN 2
 
+//-----> BUZZER.
+#define BUZZER_PIN 12
+
