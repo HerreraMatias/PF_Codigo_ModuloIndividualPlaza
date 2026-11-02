@@ -73,3 +73,16 @@ void oled_rfid_new_id(String _new_id)
     display1.print(String(_new_id));
     display1.display();
 }
+
+void oled_rs485_new(String _new_id)
+{
+    display1.clearDisplay();
+    display1.setTextSize(2);
+    display1.setTextColor(SSD1306_WHITE);
+    display1.setCursor(0, 0);
+    display1.println("  RS485:");
+    display1.setTextSize(1);
+    display1.setCursor(0, 35);
+    display1.print(String(_new_id));
+    display1.display();
+}

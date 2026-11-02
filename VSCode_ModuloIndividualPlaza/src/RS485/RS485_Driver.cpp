@@ -3,6 +3,9 @@
 #include "../ESP32_PinsConfig.h"
 #include "../Debug_setup.h"
 
+bool rs485_available = false;
+String rs485_buffer;
+
 HardwareSerial RS485Serial(2);
 
 void rs485_init()
@@ -25,10 +28,12 @@ void rs485_loop()
     //-----> Recibir mensajes
     if (RS485Serial.available())
     {
-        String mensaje = RS485Serial.readStringUntil('\n');
+        rs485_buffer = RS485Serial.readStringUntil('\n');
 
         DEBUG_("RS485 RX: ");
-        DEBUG(mensaje);
+        DEBUG(rs485_buffer);
+
+        rs485_available = true;
     }
 }
 

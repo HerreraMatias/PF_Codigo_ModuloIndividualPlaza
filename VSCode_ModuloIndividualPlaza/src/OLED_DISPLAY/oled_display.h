@@ -54,6 +54,11 @@ void oled_ultrasonico(int);
 void oled_rfid_new_id(String);
 
 /**
+ * @brief Funcion para mostrar el mensaje RS485 leido.
+ */
+void oled_rs485_new(String);
+
+/**
  * @brief Funcion para mostrar los indices del tcp.
  */
 void oled_tcp_indexes();

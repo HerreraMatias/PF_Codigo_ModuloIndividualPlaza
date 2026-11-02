@@ -61,16 +61,24 @@ void loop()
         ultrasonico_tic = 5000; // Vuelvo a medir en 5 segundos.
     }
 
+    //-----> Nuevo Mensaje RS485
+    if (rs485_available)
+    {
+        rs485_available = false; // Deshabilito
+        oled_rs485_new(rs485_buffer);
+        ultrasonico_tic = 5000; // Vuelvo a medir en 5 segundos.
+    }
+
     //-----> Timer de ejemplo.
     if (!example_tic)
     {
         example_tic = 2000;
 
         digitalWrite(LED_PIN, HIGH);
-        buzzer_on();
+        //buzzer_on();
         delay(100); // Evitar usarlos.
         digitalWrite(LED_PIN, LOW);
-        buzzer_off();
+        //buzzer_off();
 
         //----> Reles
         static int x = 0;
